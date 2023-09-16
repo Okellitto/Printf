@@ -1,6 +1,12 @@
-#include "main.h" // Include the custom header file you created
-#include <stdio.h> // You still need this for printf and other standard I/O functions
+#include <limits.h> //determines various properties of the various variable types
+#include <stdio.h> //defines three variable types, several macros, and various functions for performing input and output.
+#include "main.h" //entry point to a program that is executed in a hosted environment
 
+/**
+ * main - Entry point
+ *
+ * Return: Always 0
+ */
 int main(void)
 {
     int len;
