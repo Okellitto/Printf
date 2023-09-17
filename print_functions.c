@@ -8,9 +8,10 @@
  */
 int print_char(va_list args)
 {
-    char c = va_arg(args, int);
-    putchar(c);
-    return 1;
+	char c = va_arg(args, int);
+
+	putchar(c);
+	return (1);
 }
 
 /**
@@ -20,19 +21,17 @@ int print_char(va_list args)
  */
 int print_string(va_list args)
 {
-    char *str = va_arg(args, char *);
-    int count = 0;
+	char *str = va_arg(args, char *);
+	int count = 0;
     
-    while (*str)
+	while (*str)
     {
-        putchar(*str);
-        str++;
-        count++;
+	putchar(*str);
+	str++;
+ 	count++;
     }
-    
-    return count;
+	return (count);
 }
-
 /**
  * print_percent - Print a percent sign.
  * @args: Arguments list.
@@ -40,7 +39,7 @@ int print_string(va_list args)
  */
 int print_percent(va_list args)
 {
-    (void)args; // Unused parameter
-    putchar('%');
-    return 1;
+	(void)args;
+	putchar('%');
+    return (1);
 }
