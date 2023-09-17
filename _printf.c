@@ -26,6 +26,7 @@ int _printf(const char *format, ...)
 
 	if (print_function)
 	character_count += print_function(args);
+
 	else
 	{
 	putchar('?');
