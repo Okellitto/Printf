@@ -13,7 +13,6 @@ int print_char(va_list args)
 	putchar(c);
 	return (1);
 }
-
 /**
  * print_string - Print a string.
  * @args: Arguments list.
@@ -23,13 +22,13 @@ int print_string(va_list args)
 {
 	char *str = va_arg(args, char *);
 	int count = 0;
-    
+	
 	while (*str)
-    {
+{
 	putchar(*str);
 	str++;
- 	count++;
-    }
+	count++;
+}
 	return (count);
 }
 /**
@@ -41,5 +40,5 @@ int print_percent(va_list args)
 {
 	(void)args;
 	putchar('%');
-    return (1);
+	return (1);
 }
