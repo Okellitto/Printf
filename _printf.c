@@ -3,9 +3,37 @@
 #include <stdarg.h>
 
 /**
- * _printf - prints objects
- * @format: type
- * Return: 0
+ * print_char - Print a character and update the count
+ * @args: Argument list
+ * @count: Pointer to the character count
+ */
+static void print_char(va_list args, int *count)
+{
+	char c = va_arg(args, int);
+	putchar(c);
+	(*count)++;
+}
+
+/**
+ * print_string - Print a string and update the count
+ * @args: Argument list
+ * @count: Pointer to the character count
+ */
+static void print_string(va_list args, int *count)
+{
+	const char *str = va_arg(args, const char *);
+	while (*str)
+	{
+		putchar(*str);
+		str++;
+		(*count)++;
+	}
+}
+
+/**
+ * _printf - Print formatted text
+ * @format: Format string
+ * Return: Number of characters printed
  */
 int _printf(const char *format, ...)
 {
@@ -21,19 +49,10 @@ int _printf(const char *format, ...)
 			switch (*format)
 			{
 				case 'c':
-					putchar(va_arg(args, int));
-					count++;
+					print_char(args, &count);
 					break;
 				case 's':
-				{
-					const char *str = va_arg(args, const char *);
-					while (*str)
-					{
-						putchar(*str);
-						str++;
-						count++;
-					}
-				}
+					print_string(args, &count);
 					break;
 				case '%':
 					putchar('%');
@@ -57,6 +76,7 @@ int _printf(const char *format, ...)
 		}
 		format++;
 	}
+
 	va_end(args);
 	return (count);
 }
