@@ -1,8 +1,10 @@
-#include "custom_printf.h"
+#include "main.h"
+#include <stdio.h>
 /**
- * _printf - Custom printf function
- * @format: The format string
- * Return: Number of characters printed
+ * _printf - Prints formatted output to stdout.
+ * @format: A pointer to the format string.
+ *
+ * Return: The number of characters printed (excluding the null byte).
  */
 int _printf(const char *format, ...)
 {
@@ -18,29 +20,34 @@ int _printf(const char *format, ...)
             switch (*format)
             {
                 case 'c':
-                    character_count += my_putchar(va_arg(args, int));
+                    putchar(va_arg(args, int));
+                    character_count++;
                     break;
                 case 's':
                     {
                         char *str = va_arg(args, char *);
                         while (*str)
                         {
-                            character_count += my_putchar(*str);
+                            putchar(*str);
                             str++;
+                            character_count++;
                         }
                     }
                     break;
                 case '%':
-                    character_count += my_putchar('%');
+                    putchar('%');
+                    character_count++;
                     break;
                 default:
-                    character_count += my_putchar('?'); // Handle unknown format specifier with '?'
+                    putchar('?'); // Handle unknown format specifier with '?'
+                    character_count++;
                     break;
             }
         }
         else
         {
-            character_count += my_putchar(*format);
+            putchar(*format);
+            character_count++;
         }
         format++;
     }
