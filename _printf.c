@@ -7,22 +7,28 @@
  * @format: type
  * Return: 0
  */
-int _printf(const char *format, ...) {
+int _printf(const char *format, ...)
+{
 	va_list args;
 	va_start(args, format);
 	int count = 0;
 
-	while (*format) {
-		if (*format == '%') {
+	while (*format)
+	{
+		if (*format == '%')
+		{
 			format++;
-			switch (*format) {
+			switch (*format)
+			{
 				case 'c':
 					putchar(va_arg(args, int));
 					count++;
 					break;
-				case 's': {
+				case 's':
+				{
 					const char *str = va_arg(args, const char *);
-					while (*str) {
+					while (*str)
+					{
 						putchar(*str);
 						str++;
 						count++;
@@ -43,12 +49,14 @@ int _printf(const char *format, ...) {
 					count++;
 					break;
 			}
-		} else {
+		}
+		else
+		{
 			putchar(*format);
 			count++;
 		}
 		format++;
 	}
 	va_end(args);
-	return count;
+	return (count);
 }
