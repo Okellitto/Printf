@@ -8,6 +8,7 @@
  * Return: The number of characters printed (excluding the null byte).
  */
 int _printf(const char *format, ...)
+
 {
 	int character_count = 0;
 	va_list args;
@@ -22,11 +23,12 @@ int _printf(const char *format, ...)
 	{
 	char specifier = *format;
 	int (*print_function)(va_list) = get_print_function(specifier);
+
 	if (print_function)
 	character_count += print_function(args);
 	else
 	{
-	putchar('?'); // Handle unknown format specifier with '?'
+	putchar('?');
 	character_count++;
 	}
 	}
@@ -39,5 +41,5 @@ int _printf(const char *format, ...)
 	format++;
 	}
 	va_end(args);
-	return character_count;
+	return (character_count);
 }
