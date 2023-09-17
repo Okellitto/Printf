@@ -1,4 +1,4 @@
-#include "main.h"
+#include "custom_printf.h"
 /**
  * _printf - Custom printf function
  * @format: The format string
@@ -6,65 +6,45 @@
  */
 int _printf(const char *format, ...)
 {
-    int count = 0;
-    int i = 0;
-    char spec;
-    va_list ap;
+    int character_count = 0;
+    va_list args;
+    va_start(args, format);
 
-    if (format == NULL)
+    while (*format)
     {
-        return (-1);
-    }
-
-    va_start(ap, format);
-
-    while (format[i] != '\0')
-    {
-        if (format[i] != '%')
+        if (*format == '%')
         {
-            /* Handle regular characters */
-            putchar(format[i]);
-            count++;
+            format++;
+            switch (*format)
+            {
+                case 'c':
+                    character_count += my_putchar(va_arg(args, int));
+                    break;
+                case 's':
+                    {
+                        char *str = va_arg(args, char *);
+                        while (*str)
+                        {
+                            character_count += my_putchar(*str);
+                            str++;
+                        }
+                    }
+                    break;
+                case '%':
+                    character_count += my_putchar('%');
+                    break;
+                default:
+                    character_count += my_putchar('?'); // Handle unknown format specifier with '?'
+                    break;
+            }
         }
         else
         {
-            int (*print_function)(va_list);
-
-            i++;
-            spec = format[i];
-            if (spec != '\0')
-            {
-                va_list ap_copy;
-                va_copy(ap_copy, ap);
-
-                /* Handle format specifiers */
-                switch (spec)
-                {
-                    case 'c':
-                        print_function = print_char;
-                        break;
-                    case 's':
-                        print_function = print_string;
-                        break;
-                    case '%':
-                        print_function = print_percent;
-                        break;
-                    case 'r':
-                        print_function = print_custom_r;
-                        break;
-                    default:
-                        print_function = NULL;
-                }
-
-                if (print_function != NULL)
-                {
-                    count += print_function(ap_copy);
-                }
-            }
+            character_count += my_putchar(*format);
         }
-        i++;
+        format++;
     }
 
-    va_end(ap);
-    return (count);
+    va_end(args);
+    return character_count;
 }
