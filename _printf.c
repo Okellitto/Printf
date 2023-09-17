@@ -32,6 +32,13 @@ int _printf(const char *format, ...) {
                     putchar('%');
                     count++;
                     break;
+                case 'r':
+                 putchar('%'); // Print the '%' character
+                 putchar('r'); // Print the 'r' character
+                 count += 2;   // Increment 'count' by the number of characters printed
+                 break;
+
+
                 default: // Handle unsupported format specifier
                     putchar('?');
                     count++;
