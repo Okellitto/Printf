@@ -1,82 +1,70 @@
 #include "main.h"
-#include <stdio.h>
-#include <stdarg.h>
-
 /**
- * print_char - Print a character and update the count
- * @args: Argument list
- * @count: Pointer to the character count
- */
-static void print_char(va_list args, int *count)
-{
-	char c = va_arg(args, int);
-	putchar(c);
-	(*count)++;
-}
-
-/**
- * print_string - Print a string and update the count
- * @args: Argument list
- * @count: Pointer to the character count
- */
-static void print_string(va_list args, int *count)
-{
-	const char *str = va_arg(args, const char *);
-	while (*str)
-	{
-		putchar(*str);
-		str++;
-		(*count)++;
-	}
-}
-
-/**
- * _printf - Print formatted text
- * @format: Format string
+ * _printf - Custom printf function
+ * @format: The format string
  * Return: Number of characters printed
  */
 int _printf(const char *format, ...)
 {
-	va_list args;
-	va_start(args, format);
-	int count = 0;
+    int count = 0;
+    int i = 0;
+    char spec;
+    va_list ap;
 
-	while (*format)
-	{
-		if (*format == '%')
-		{
-			format++;
-			switch (*format)
-			{
-				case 'c':
-					print_char(args, &count);
-					break;
-				case 's':
-					print_string(args, &count);
-					break;
-				case '%':
-					putchar('%');
-					count++;
-					break;
-				case 'r':
-					putchar('%');
-					putchar('r');
-					count += 2;
-					break;
-				default:
-					putchar('?');
-					count++;
-					break;
-			}
-		}
-		else
-		{
-			putchar(*format);
-			count++;
-		}
-		format++;
-	}
+    if (format == NULL)
+    {
+        return (-1);
+    }
 
-	va_end(args);
-	return (count);
+    va_start(ap, format);
+
+    while (format[i] != '\0')
+    {
+        if (format[i] != '%')
+        {
+            /* Handle regular characters */
+            putchar(format[i]);
+            count++;
+        }
+        else
+        {
+            int (*print_function)(va_list);
+
+            i++;
+            spec = format[i];
+            if (spec != '\0')
+            {
+                va_list ap_copy;
+                va_copy(ap_copy, ap);
+
+                /* Handle format specifiers */
+                switch (spec)
+                {
+                    case 'c':
+                        print_function = print_char;
+                        break;
+                    case 's':
+                        print_function = print_string;
+                        break;
+                    case '%':
+                        print_function = print_percent;
+                        break;
+                    case 'r':
+                        print_function = print_custom_r;
+                        break;
+                    default:
+                        print_function = NULL;
+                }
+
+                if (print_function != NULL)
+                {
+                    count += print_function(ap_copy);
+                }
+            }
+        }
+        i++;
+    }
+
+    va_end(ap);
+    return (count);
 }
