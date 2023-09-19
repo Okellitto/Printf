@@ -16,19 +16,28 @@ int _printf(const char *format, ...)
 	if (format == NULL)
 		return (-1);
 
-	va_start(list_of_arg, format);
+	va_start(list_of_args, format);
 
 	while (*format)
 	{
 	if (*format == '%')
 	{
 	fputs("%%", %);
-	format++;
+	character_count++;
 	}
 	else
+		format++
+			if (*format == '\0')
+				break;
+
 		if (*format != '%')
-			break;
+		character_count++;
 	{
+	else if (*format == 'c')
+		char c = va_arg(list_of_arguments, char*);
+        {
+                fputs("%c", c)
+	}
 	else if (*format == 's')
 
 	char *str = va_arg(list_of_arg, char*);
@@ -42,12 +51,6 @@ int _printf(const char *format, ...)
 	if (print_function)
 	character_count += print_function(args);
 
-	else if (*format == 'c')
-
-	char c = va_arg(list_of_arguments, char*);
-	{
-		fputs("%c", c)
-	}
 	va_end(args);
 	return (character_count);
 }
