@@ -43,13 +43,13 @@ int _printf(const char *format, ...)
 	break;
 	}
 	}
-	else
+		else
 	{
-	putchar(*format);
-	count++;
+		putchar(*format);
+		count++;
+		format++;
 	}
-	format++;
 	}
-	va_end(args);
+		va_end(args);
 	return (count);
 }
