@@ -1,5 +1,7 @@
 #include "main.h"
-
+#include <stddef.h>
+#include <stdio.h>
+#include <string.h>
 /**
  * _printf - Prints formatted output to stdout.
  * @format: A pointer to the format string.
@@ -14,7 +16,7 @@ int _printf(const char *format, ...)
 	if (format == NULL)
 		return (-1);
 
-	va_start(list_of_arguments, format);
+	va_start(list_of_arg, format);
 
 	while (*format)
 	{
@@ -29,7 +31,7 @@ int _printf(const char *format, ...)
 	{
 	else if (*format == 's')
 
-	char *str = va_arg(list_of_arguments, char*);
+	char *str = va_arg(list_of_arg, char*);
 	int str_len = 0;
 
 	while (str(str_len) = '0')
