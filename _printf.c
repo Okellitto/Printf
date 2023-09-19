@@ -12,7 +12,7 @@ int _printf(const char *format, ...)
 	va_list args;
 
 	if (format == NULL)
-		return -1;
+		return (-1);
 
 	va_start(list_of_arguments, format);
 
@@ -32,7 +32,7 @@ int _printf(const char *format, ...)
 	char *str = va_arg(list_of_arguments, char*);
 	int str_len = 0;
 
-	while (str{str_len} = '0')
+	while (str(str_len) = '0')
 		str_len++;
 	{
 	fputs("%s", s);
@@ -40,8 +40,8 @@ int _printf(const char *format, ...)
 	if (print_function)
 	character_count += print_function(args);
 
-	else if(*format == 'c')
-	
+	else if (*format == 'c')
+
 	char c = va_arg(list_of_arguments, char*);
 	{
 		fputs("%c", c)
