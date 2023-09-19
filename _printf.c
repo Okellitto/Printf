@@ -1,14 +1,13 @@
-#include "main.h" // Include the custom header file
-
+#include "main.h"
 #include <stdio.h>
 #include <stdarg.h>
 
-int _printf(const char *format, ...) 
+int _printf(const char *format, ...)
 {
 	va_list args;
 
 	va_start(args, format);
-    
+
 	int count = 0;
 
 	while (*format)
@@ -25,6 +24,7 @@ int _printf(const char *format, ...)
 	case 's':
 	{
 	const char *str = va_arg(args, const char *);
+
 	while (*str)
 	{
 	putchar(*str);
@@ -50,5 +50,5 @@ int _printf(const char *format, ...)
 	format++;
     }
 	va_end(args);
-	return count;
+	return (count);
 }
