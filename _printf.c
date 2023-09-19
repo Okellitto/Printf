@@ -11,7 +11,7 @@
 int _printf(const char *format, ...)
 {
 	int character_count = 0;
-	va_list args;
+	va_list list_of_args;
 
 	if (format == NULL)
 		return (-1);
@@ -26,17 +26,17 @@ int _printf(const char *format, ...)
 	character_count++;
 	}
 	else
-		format++
-			if (*format == '\0')
-				break;
 
-		if (*format != '%')
-		character_count++;
+	if (*format == '\0')
+	break;
+
+	if (*format != '%')
+	character_count++;
 	{
 	else if (*format == 'c')
 		char c = va_arg(list_of_arguments, char*);
         {
-                fputs("%c", c)
+                fputs("%c", c);
 	}
 	else if (*format == 's')
 
@@ -53,6 +53,6 @@ int _printf(const char *format, ...)
 
 	va_end(args);
 	return (character_count);
-}
-}
+	}
+	}
 }
