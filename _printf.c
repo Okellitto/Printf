@@ -1,58 +1,50 @@
-#include "main.h"
-#include <stddef.h>
+#include "main.h" // Include the custom header file
+
 #include <stdio.h>
-#include <string.h>
-/**
- * _printf - Prints formatted output to stdout.
- * @format: A pointer to the format string.
- *
- * Return: The number of characters printed (excluding the null byte).
- */
-int _printf(const char *format, ...)
+#include <stdarg.h>
+
+int _printf(const char *format, ...) 
 {
-	int character_count = 0;
-	va_list list_of_args;
-
-	if (format == NULL)
-		return (-1);
-
-	va_start(list_of_args, format);
-
-	while (*format)
+    va_list args;
+    va_start(args, format);
+    
+    int count = 0; // To keep track of characters printed
+    
+    while (*format)
+    {
+	if (*format == '%') {
+	format++; // Move past '%'
+	switch (*format) {
+	case 'c':
+	putchar(va_arg(args, int));
+	count++;
+	break;
+	case 's':
 	{
-	if (*format == '%')
-	{
-	fputs(%%, %);
-	character_count++;
+	const char *str = va_arg(args, const char *);
+	while (*str) {
+	putchar(*str);
+	str++;
+	count++;
 	}
-	else
-	{
-	if (*format == '\0')
+	}
+	break;
+	case '%':
+	putchar('%');
+	count++;
+	break;
+	default;
+	putchar('?');
+	count++;
 	break;
 	}
-	{
-	if (*format != '%')
-	character_count++;
 	}
-	if (*format == 'c')
-	char c = va_arg(list_of_arguments, char*);
-        {
-	fputs(%c, c);
-	}
-	else if (*format == 's')
-
-	char *str = va_arg(list_of_arg, char*);
-	int str_len = 0;
-
-	while (str(str_len) == '0')
-		str_len++;
-	{
-	fputs(%s, s);
-	}
-	if (print_function)
-	character_count += print_function(args);
-
+	else {
+	putchar(*format);
+	count++;
+        }
+	format++; // Move to the next character in the format string
+    }
 	va_end(args);
-	return (character_count);
-	}
+	return count;
 }
