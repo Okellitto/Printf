@@ -21,6 +21,7 @@ int _printf(const char *format, ...)
 	putchar(va_arg(args, int));
 	count++;
 	break;
+
 	case 's':
 	{
 	const char *str = va_arg(args, const char *);
@@ -37,18 +38,17 @@ int _printf(const char *format, ...)
 	putchar('%');
 	count++;
 	break;
-	default;
+	default:
 	putchar('?');
 	count++;
 	break;
 	}
-	}
-		else
+	
+	else
 	{
 		putchar(*format);
 		count++;
 		format++;
-	}
 	}
 		va_end(args);
 	return (count);
