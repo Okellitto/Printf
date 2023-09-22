@@ -1,55 +1,31 @@
 #include "main.h"
-#include <stdio.h>
-#include <stdarg.h>
+
+/*
+ * _printf - produces output
+ * @format: format
+ * Return: value
+ */
 
 int _printf(const char *format, ...)
 {
+	int printed_characters;
+	convert funct_list[] = {
+		{"%", p_percent},
+		{"c", p_character},
+		{"s", p_string},
+		{"d", p_interger},
+		{NULL,NULL}
+	};
+
 	va_list args;
+	
+	if (format == NULL)
+		return (-1);
 
 	va_start(args, format);
 
-	int count = 0;
+	printed_characters = parser(format, function_list, args);
+	va_end(args);
 
-	while (*format)
-	{
-	if (*format == '%')
-	{
-	format++;
-	switch (*format)
-	{
-	case 'c':
-	putchar(va_arg(args, int));
-	count++;
-	break;
-	case 's':
-	{
-	const char *str = va_arg(args, const char *);
-
-	while (*str)
-	{
-	putchar(*str);
-	str++;
-	count++;
-	}
-	}
-	break;
-	case '%':
-	putchar('%');
-	count++;
-	break;
-	default;
-	putchar('?');
-	count++;
-	break;
-	}
-	}
-		else
-	{
-		putchar(*format);
-		count++;
-		format++;
-	}
-	}
-		va_end(args);
-	return (count);
+	return (printed_characters);
 }
