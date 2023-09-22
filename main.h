@@ -3,7 +3,8 @@
 
 #include <stdarg.h>
 int _printf(const char *format, ...);
-
+#include <stdio.h>
+#include <stdint.h>
 /**
  * struct print_function - A structure for print functions.
  * @specifier: The format specifier.
